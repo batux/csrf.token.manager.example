@@ -5,13 +5,14 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 
 import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
 
 
 public class ObjectSerializeManager {
 
-	public static <T extends Object> String serialize(T object) throws Exception {
+	public static <T extends Serializable> String serialize(T object) throws Exception {
 
 		ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 		ObjectOutputStream objectOutputStream = new ObjectOutputStream(byteArrayOutputStream);
@@ -24,7 +25,7 @@ public class ObjectSerializeManager {
 	}
 
 	@SuppressWarnings("unchecked")
-	public static <T extends Object> T deserialize(String serializedObjectAsText) throws ClassNotFoundException, IOException {
+	public static <T extends Serializable> T deserialize(String serializedObjectAsText) throws ClassNotFoundException, IOException {
 		
 		byte[] bytes = org.springframework.security.crypto.codec.Base64.decode(serializedObjectAsText.getBytes());
 		
